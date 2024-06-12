@@ -25,18 +25,37 @@ const images = [
   },
 ];
 
-// Napisz skrypt tworzący galerię obrazów na podstawie tablicy danych.HTML zawiera listę ul.gallery.
-// Wykorzystaj tablicę obiektów images do utworzenia elementów <img>, umieszczonych wewnątrz <li>.
+const gallery = document.querySelector('ul.gallery');
 
-// Możesz utworzyć i dodać elementy HTML za pomocą document.createElement() i elem.append(),
-//     lub szablonów ciągów i elem.insertAdjacentHTML().
+const galleryItems = images
+  .map(image => {
+    return `
+    <li class="gallery-item">
+      <img src="${image.url}" alt="${image.alt}" class="gallery-image">
+    </li>`;
+  })
+  .join('');
 
-// Wszystkie elementy galerii powinny być dodawane do DOM w jednej operacji dodawania.
-// Dodaj minimalne stylizowanie galerii za pomocą flexboxów za pomocą klas CSS.
-// Na co zwróci uwagę mentor podczas sprawdzania:
+gallery.insertAdjacentHTML('beforeend', galleryItems);
 
-// Stworzona i dodana do DOM galeria z trzema obrazami.
-// Galeria dodana do listy ul.gallery i składa się z 3 elementów <li>, w których znajdują się elementy <img>.
-// Do tworzenia elementów <img> użyto danych z tablicy obiektów images.
-// Wszystkie elementy galerii dodane do DOM w jednej operacji dodawania.
-// Istnieje minimalne stylizowanie galerii przy użyciu flexboxów za pomocą klas CSS.
+const galleryStyle = document.createElement('style');
+galleryStyle.textContent = `
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .gallery-item {
+    flex: 1 1 calc(33.333% - 10px);
+    box-sizing: border-box;
+  }
+  .gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+document.head.appendChild(galleryStyle);

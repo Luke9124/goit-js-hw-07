@@ -1,12 +1,11 @@
-// Z wykorzystaniem właściwości i metod elementów DOM napisz skrypt, który:
+const categories = document.querySelectorAll('ul#categories li.item');
 
-// Policzy i wypisze w konsoli liczbę kategorii w ul#categories, czyli elementów li.item.
-// Dla każdego elementu li.item na liście ul#categories znajdzie
-// i wypisze w konsoli tekst nagłówka elementu(tagu < h2 >) oraz
-// liczbę elementów w kategorii(wszystkich < li >, które są w nim zagnieżdżone).
+console.log(`Liczba kategorii w ul#categories: ${categories.length}`);
 
-// Na co zwróci uwagę mentor podczas sprawdzania:
+categories.forEach(category => {
+  const headerTextContent = category.querySelector('h2').textContent;
+  const liItems = category.querySelectorAll('li');
 
-// Liczba kategorii, ich nazwa i liczba elementów uzyskane za pomocą właściwości i metod elementów DOM.
-// Dane dla każdej kategorii zostały uzyskane i wypisane w konsoli w ciele pętli lub metody forEach().
-// W konsoli powinno być wypisane następujące komunikat:
+  console.log(`Tekst nagłówka elementu: ${headerTextContent}`);
+  console.log(`Liczba elementów w kategorii: ${liItems.length}`);
+});

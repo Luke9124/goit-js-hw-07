@@ -1,14 +1,9 @@
-// Napisz skrypt, który podczas wprowadzania tekstu do inputu input#name - input(zdarzenie input)
-// podstawia jego bieżącą wartość do span#name - output jako imię do powitania.
-// Upewnij się, że wartość w inpucie jest oczyszczana z białych znaków na krańcach.
-// Jeśli input jest pusty lub zawiera tylko spacje, to zamiast imienia w spanie powinien pojawić się ciąg "Anonymous".
+document.addEventListener('DOMContentLoaded', () => {
+  const inputName = document.getElementById('name-input');
+  const outputName = document.getElementById('name-output');
 
-// <input type="text" id="name-input" placeholder="Please enter your name" />
-// <h1>Hello, <span id="name-output">Anonymous</span>!</h1>
-
-// Na co zwróci uwagę mentor podczas sprawdzania:
-
-// Element input#name-input nasłuchuje zdarzenie input.
-// Podczas wprowadzania tekstu do inputu, jego aktualna wartość jest podstawiana do span#name-output jako imię do powitania.
-// Wartość w inpucie jest oczyszczana z białych znaków na krańcach.
-// Jeśli input jest pusty lub zawiera tylko spacje, to zamiast imienia w spanie pojawi się ciąg "Anonymous".
+  inputName.addEventListener('input', () => {
+    const trimValue = inputName.value.trim();
+    outputName.textContent = trimValue ? trimValue : 'Anonymous';
+  });
+});

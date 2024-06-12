@@ -1,49 +1,44 @@
-// function getRandomHexColor() {
-//   return `#${Math.floor(Math.random() * 16777215)
-//     .toString(16)
-//     .padStart(6, 0)}`;
-// }
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, 0)}`;
+}
 
-// Napisz skrypt do tworzenia i czyszczenia kolekcji elementów z następującą funkcjonalnością.
+function createBoxes(amount) {
+  const boxesContainer = document.getElementById('boxes');
+  const fragment = document.createDocumentFragment();
 
-// Istnieje input, do którego użytkownik wprowadza żądaną liczbę elementów.
-// Po naciśnięciu przycisku Create powinna być renderowana(dodawana do DOM) kolekcja z odpowiednią liczbą elementów i
-// czyścić się wartość w inpucie.Po ponownym naciśnięciu przycisku Create powinna być renderowana nowa kolekcja powyżej starej.
-// Po naciśnięciu przycisku Destroy kolekcja elementów powinna być wyczyszczona.
+  for (let i = 0; i < amount; i++) {
+    const box = document.createElement('div');
+    const size = 30 + i * 10;
+    box.style.width = `${size}px`;
+    box.style.height = `${size}px`;
+    box.style.backgroundColor = getRandomHexColor();
+    fragment.appendChild(box);
+  }
 
-// <div id="controls">
-//   <input type="number" min="1" max="100" step="1" />
-//   <button type="button" data-create>Create</button>
-//   <button type="button" data-destroy>Destroy</button>
-// </div>
+  boxesContainer.appendChild(fragment);
+}
 
-// <div id="boxes"></div>
+function destroyBoxes() {
+  const boxesContainer = document.getElementById('boxes');
+  boxesContainer.innerHTML = '';
+}
 
-// Po naciśnięciu przez użytkownika przycisku Create, wartość w input musi być zwalidowana i
-// musi mieć wartość w zakresie od 1 do 100 włącznie.Tylko wtedy nowe elementy < div > powinny być dodawane do DOM.
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.querySelector('#controls input');
+  const createButton = document.querySelector('[data-create]');
+  const destroyButton = document.querySelector('[data-destroy]');
 
-// Aby renderować elementy na stronie, stwórz funkcję createBoxes(amount), która przyjmuje jeden parametr - liczbę,
-//     która przechowuje ilość elementów do zrenderowania.Funkcja powinna tworzyć tyle elementów < div >,
-//         ile jest podane w parametrze amount, i dodawać je do DOM jako dzieci dla div#boxes.
+  createButton.addEventListener('click', () => {
+    const amount = parseInt(input.value);
+    if (amount >= 1 && amount <= 100) {
+      createBoxes(amount);
+      input.value = '';
+    } else {
+      alert('Please enter a number between 1 and 100');
+    }
+  });
 
-// Rozmiary pierwszego elementu <div> powinny wynosić 30px na 30px.
-// Każdy kolejny element powinien być szerszy i wyższy od poprzedniego o 10px.
-// Wszystkie elementy powinny mieć losowy kolor tła. Użyj gotowej funkcji getRandomHexColor() do uzyskania losowego koloru.
-
-// function getRandomHexColor() {
-//   return `#${Math.floor(Math.random() * 16777215)
-//     .toString(16)
-//     .padStart(6, 0)}`;
-// }
-
-// Aby wyczyścić kolekcję po naciśnięciu przycisku Destroy, stwórz funkcję destroyBoxes(),
-//     która usuwa zawartość div#boxes, usuwając wszystkie utworzone elementy.
-
-// Na co zwróci uwagę mentor podczas sprawdzania:
-
-// Po kliknięciu przycisku Create, jeśli wartość w input znajduje się poza zakresem 1-100, nic się nie dzieje.
-// Po kliknięciu przycisku Create, w div#boxes dodawana jest taka liczba różnokolorowych kwadratów, jaką podano w input. Wartość w input jest czyszczona.
-// Po ponownym kliknięciu przycisku Create poprzednie kwadraty są całkowicie usuwane, a zamiast nich dodawane są nowe w ilości podanej w input. Wartość w input jest czyszczona.
-// Wszystkie kwadraty w div#boxes są różnokolorowe i mają tło w losowym kolorze.
-// Pierwszy kwadrat w div#boxes ma wymiary 30px na 30px, a każdy kolejny jest o 10px wyższy i szerszy od poprzedniego.
-// Po naciśnięciu przycisku Destroy wszystkie kwadraty z div#boxes powinny być usuwane.
+  destroyButton.addEventListener('click', destroyBoxes);
+});
