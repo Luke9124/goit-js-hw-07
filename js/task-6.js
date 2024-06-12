@@ -4,7 +4,7 @@ function getRandomHexColor() {
     .padStart(6, 0)}`;
 }
 
-function createBoxes(amount) {
+const createBoxes = amount => {
   const boxesContainer = document.getElementById('boxes');
   const fragment = document.createDocumentFragment();
 
@@ -18,12 +18,12 @@ function createBoxes(amount) {
   }
 
   boxesContainer.appendChild(fragment);
-}
+};
 
-function destroyBoxes() {
+const destroyBoxes = () => {
   const boxesContainer = document.getElementById('boxes');
   boxesContainer.innerHTML = '';
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.querySelector('#controls input');
