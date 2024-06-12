@@ -17,7 +17,7 @@ const createBoxes = amount => {
     fragment.appendChild(box);
   }
 
-  boxesContainer.appendChild(fragment);
+  boxesContainer.insertBefore(fragment, boxesContainer.firstChild);
 };
 
 const destroyBoxes = () => {
